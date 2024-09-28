@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/09/24 18:09:03.000.834,=C:\Users\DIGANTA\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2024/09/24 18:11:47.000.390,C:\Users\DIGANTA\Documents\Embarcadero\Studio\Projects\Unit2.dfm=C:\Users\DIGANTA\Documents\c++\gola\Unit2.dfm</Transaction>
+    <Transaction>2024/09/24 18:11:47.000.390,C:\Users\DIGANTA\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\DIGANTA\Documents\c++\gola\Unit2.pas</Transaction>
+    <Transaction>2024/09/24 18:11:49.000.463,C:\Users\DIGANTA\Documents\Embarcadero\Studio\Projects\Project3.dproj=C:\Users\DIGANTA\Documents\c++\gola\Project3.dproj</Transaction>
+    <Transaction>2024/09/25 06:47:27.000.255,=C:\Users\DIGANTA\Documents\c++\gola\ModelSupport_Project3\default.txaPackage</Transaction>
+  </Transactions>
+</BorlandProject>

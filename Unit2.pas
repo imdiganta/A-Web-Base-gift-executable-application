@@ -1,0 +1,92 @@
+unit Unit2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.OleCtrls, SHDocVw,
+  Vcl.StdCtrls, Vcl.Themes, Vcl.Styles, System.Net.HttpClient,
+   System.Net.HttpClientComponent, System.JSON; // Include Vcl.Styles
+
+type
+  TForm2 = class(TForm)
+    WebBrowser1: TWebBrowser;
+    procedure FormCreate(Sender: TObject); // Declare FormCreate event
+  private
+    procedure LoadHTML; // Load HTML content
+    procedure SetBrowserEmulation; // Set the browser emulation
+    procedure LoadCustomStyle; // Load custom style
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm2.SetBrowserEmulation;
+var
+  Key: HKEY;
+  Value: DWORD;
+begin
+  if RegOpenKeyEx(HKEY_CURRENT_USER, 'Software\Microsoft\Internet Explorer\Main', 0, KEY_SET_VALUE, Key) = ERROR_SUCCESS then
+  begin
+    Value := 11001; // Set the emulation to IE11
+    RegSetValueEx(Key, 'FEATURE_BROWSER_EMULATION', 0, REG_DWORD, @Value, SizeOf(Value));
+    RegCloseKey(Key);
+  end;
+end;
+
+procedure TForm2.LoadHTML;
+var
+  HTMLFilePath: string;
+begin
+  // Get the application's startup path
+  HTMLFilePath := ExtractFilePath(Application.ExeName) + 'WebFiles\love.html';
+
+  // Check if the file exists before navigating
+  if FileExists(HTMLFilePath) then
+    WebBrowser1.Navigate('file:///' + HTMLFilePath) // Use 'file:///' prefix
+  else
+    ShowMessage('HTML file not found: ' + HTMLFilePath); // Show error if file not found
+end;
+
+procedure TForm2.LoadCustomStyle;
+var
+  StyleFilePath: string;
+begin
+  // Get the application's startup path for the style file
+  StyleFilePath := ExtractFilePath(Application.ExeName) + 'Styles\molopink.vsf'; // Change to your style path
+
+  if FileExists(StyleFilePath) then
+  begin
+    TStyleManager.LoadFromFile(StyleFilePath); // Load the style
+    TStyleManager.SetStyle('molo1212'); // Use the style name (make sure this matches the style)
+  end
+  else
+  begin
+    ShowMessage('Style file not found: ' + StyleFilePath); // Show error if file not found
+  end;
+end;
+
+procedure TForm2.FormCreate(Sender: TObject);
+begin
+  SetBrowserEmulation; // Set the browser emulation before loading HTML
+  LoadCustomStyle; // Load custom style
+  try
+    WebBrowser1.Silent := True; // Suppress script error dialogs
+    LoadHTML; // Load the HTML file when the form is created
+  except
+    on E: Exception do
+      ShowMessage('Error loading HTML: ' + E.Message); // Catch any exceptions
+  end;
+end;
+
+
+
+
+end.
+

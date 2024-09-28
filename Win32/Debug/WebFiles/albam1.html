@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Specify document mode for different versions of Internet Explorer -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest mode available -->
+    <meta http-equiv="X-UA-Compatible" content="IE=11">  <!-- IE 11 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=10">  <!-- IE 10 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=9">   <!-- IE 9 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=8">   <!-- IE 8 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"> <!-- Emulate IE 8 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"> <!-- Emulate IE 7 -->
+
+    <link rel="stylesheet" href="..\style.css">
+    <link rel="stylesheet" href="..\assert\bootstrap-5.0.2\dist\css\bootstrap.min.css" />
+    <link rel="stylesheet" href="..\highlight\styles\vs.min.css">
+    <link rel="stylesheet" href="..\assert\bulma\css\bulma.min.css" />
+    <link rel="stylesheet" href="..\assert\bulma\bulma.sass" />
+    <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.css" />
+    <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.min.css" />
+    <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\normalize.css" />
+    <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\skeleton.css" />
+    <link rel="stylesheet" href="..\assert\datatable\datatables.css" />
+    <link rel="stylesheet" href="..\assert\datatable\datatables.min.css" />
+    <link rel="stylesheet" href="..\assert\mdb\css\mdb.min.css" />
+    <link rel="stylesheet" href="..\assert\mdb\css\mdb.rtl.min.css" />
+    <!-- <link rel="stylesheet" href="highlight\styles\a11y-dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\tokyo-night-dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\tomorrow-night-blue.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\stackoverflow-dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="assert\mdb\css\mdb.dark.rtl.min.css" /> -->
+    <!-- <link rel="stylesheet" href="assert\mdb\css\mdb.dark.min.css" /> -->
+    <script src="..\highlight\highlight.js"></script>
+    <script src="..\highlight\highlight.min.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/app.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.min.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/jquery.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/what-input.js"></script>
+    <script src="..\assert\mdb/js/mdb.es.min.js"></script>
+    <script src="..\assert\bootstrap-5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="..\assert\mdb/js/mdb.umd.min.js"></script>
+    <script src="..\assert\datatable\jquery.dataTables.min.js"></script>
+    <script src="..\assert\datatable\datatables.js"></script>
+    <script src="..\assert\datatable\datatables.min.js"></script>
+    <script src="..\assert\ckeditor\ckeditor.js"></script>
+
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <title>Photo Album</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 100px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
+header p {
+    font-size: 1.2em;
+    color: #666;
+}
+
+.photo-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: -10px; /* Negative margin for wider gaps */
+}
+
+.photo-item {
+    width: calc(33.333% - 20px); /* Three items per row with gaps */
+    margin: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.photo-item:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.photo-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: filter 0.3s ease;
+}
+
+.photo-item:hover img {
+    filter: brightness(0.9);
+}
+
+.caption {
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    background-color: #f8f8f8;
+}
+
+/* Animation for fade in effect */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+    /* Media query for responsiveness */
+    @media (max-width: 768px) {
+    .photo-item {
+        width: calc(50% - 20px); /* Two items per row on smaller screens */
+    }
+    .container {
+    margin-top: 0px;
+}
+}
+
+@media (max-width: 480px) {
+    .photo-item {
+        width: 100%; /* One item per row on extra small screens */
+    }
+    .container {
+    margin-top: 0px;
+}
+}
+
+</style>
+<style>
+    .modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.9); /* Black with opacity */
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%; /* Width of the modal image */
+    max-width: 700px; /* Max width of the modal image */
+}
+
+#caption {
+    margin: auto;
+    display: block;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+</style>
+<style>
+    .profile{
+        border-radius: 100px;
+        width: 200px;
+        height: 200px;
+        background-color:#ff0000;
+        border: 10px solid white;
+        margin-top: 200px;
+        left: 50vh;
+        position: absolute;
+        background-image: url("image/(36).jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
+        
+    }
+    .image-class{
+        height: 300px; 
+        border-radius: 20px; 
+        background-color:#333;
+        margin: 20px;
+        display: flex;
+        flex-flow: nowrap;
+        overflow: hidden;
+        
+    }
+    .local-slider{
+        width: 300%;
+        background-color: #ff0000;
+        height: 400px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
+        scroll-behavior: unset;
+    }
+</style>
+<style>
+@media only screen and (min-width: 1000px) {
+    .profile{
+        left: 85vh;  
+    }
+}
+
+@media only screen and (max-height: 640px) {
+    .profile{
+        left: 50vh;  
+    }
+}
+</style>
+<body>
+<div class="top-nav" style="height: 40px;margin: 0;padding: 0; float: left;">
+    <span  class="close" style="color: white;margin: 0;padding: 0; font-weight: bold;" id="back">←</span>
+</div>
+    <div id="slideshow">
+        <div class="image-class">
+            <div class="local-slider" style="background-image: url('image/\(8\).jpg');"></div>
+            <div class="profile" ></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>My Photo Album</h1>
+            <p>A collection of my favorite memories</p>
+        </header>
+        <div class="photo-gallery" id="photoGallery">
+            <!-- Images will be added here by JavaScript -->
+        </div>
+    </div>
+    <div class="modal" id="imageModal">
+        <span class="close" id="closeModal">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+    <audio style="display: none;" id="audioPlayer" controls loop>
+        <source src="Memories.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag.
+    </audio>  
+</body>
+<script>
+    // Get the audio element
+    var audioPlayer = document.getElementById('audioPlayer');
+
+    // Automatically play the audio when the page loads
+    window.onload = function() {
+        audioPlayer.play();
+    };
+
+    // Optional: Log when the audio is playing or paused
+    audioPlayer.addEventListener('play', function() {
+        console.log('Audio is playing');
+    });
+
+    audioPlayer.addEventListener('pause', function() {
+        console.log('Audio is paused');
+    });
+
+    // If autoplay is not allowed, add a button for manual play
+    audioPlayer.addEventListener('error', function() {
+        console.log('Error occurred while trying to play audio. Please start it manually.');
+    });
+</script>
+<script>
+var images = [];
+for (var i = 1; i <= 125; i++) {
+    images.push('image/(' + i + ').jpg');
+}
+
+var gallery = document.getElementById('photoGallery');
+var modal = document.getElementById('imageModal');
+var modalImage = document.getElementById('modalImage');
+var captionText = document.getElementById('caption');
+var closeModal = document.getElementById('closeModal');
+
+for (var i = 0; i < images.length; i++) {
+    (function(index) {
+        var img = new Image();
+        img.src = images[index];
+
+        img.onload = function() {
+            var item = document.createElement('div');
+            item.className = 'photo-item';
+
+            var aspectRatio = this.width / this.height; 
+            var height = 200; 
+            var width = height * aspectRatio;
+
+            item.style.width = width + 'px';
+            item.style.height = height + 'px';
+
+            var imgElement = document.createElement('img');
+            imgElement.src = img.src;
+            imgElement.alt = 'Image ' + (index + 1);
+
+            imgElement.onclick = function() {
+                modal.style.display = "block";
+                modalImage.src = img.src;
+                captionText.innerHTML = 'Image ' + (index + 1);
+            };
+
+            var caption = document.createElement('div');
+            caption.className = 'caption';
+            caption.textContent = 'Image ' + (index + 1); 
+
+            item.appendChild(imgElement);
+            item.appendChild(caption);
+            gallery.appendChild(item);
+        };
+
+        img.onerror = function() {
+            console.error('Error loading image: ' + this.src);
+        };
+    })(i);
+}
+
+// Close the modal when the close button is clicked
+closeModal.onclick = function() {
+    modal.style.display = "none";
+};
+
+// Close the modal when clicking anywhere outside the image
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+};
+
+document.addEventListener("contextmenu", function (e) {
+    console.log("ctx menu button:", e.which);
+
+    // Stop the context menu
+    e.preventDefault();
+});
+
+document.addEventListener("mousedown", function (e) {
+    console.log("normal mouse down:", e.which);
+});
+
+document.addEventListener("mouseup", function (e) {
+    console.log("normal mouse up:", e.which);
+});
+
+var button = document.getElementById('back');
+
+button.addEventListener('click', function () {
+    window.location = "blue.html";
+});
+</script>
+</html>

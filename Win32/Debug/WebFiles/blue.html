@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Specify document mode for different versions of Internet Explorer -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest mode available -->
+    <meta http-equiv="X-UA-Compatible" content="IE=11">  <!-- IE 11 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=10">  <!-- IE 10 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=9">   <!-- IE 9 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=8">   <!-- IE 8 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"> <!-- Emulate IE 8 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"> <!-- Emulate IE 7 -->
+
+    <link rel="stylesheet" href="..\style.css">
+    <link rel="stylesheet" href="..\assert\bootstrap-5.0.2\dist\css\bootstrap.min.css" />
+    <link rel="stylesheet" href="..\highlight\styles\vs.min.css">
+    <link rel="stylesheet" href="..\assert\bulma\css\bulma.min.css" />
+    <link rel="stylesheet" href="..\assert\bulma\bulma.sass" />
+    <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.css" />
+    <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.min.css" />
+    <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\normalize.css" />
+    <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\skeleton.css" />
+    <link rel="stylesheet" href="..\assert\datatable\datatables.css" />
+    <link rel="stylesheet" href="..\assert\datatable\datatables.min.css" />
+    <link rel="stylesheet" href="..\assert\mdb\css\mdb.min.css" />
+    <link rel="stylesheet" href="..\assert\mdb\css\mdb.rtl.min.css" />
+    <!-- <link rel="stylesheet" href="highlight\styles\a11y-dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\tokyo-night-dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\tomorrow-night-blue.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\stackoverflow-dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="assert\mdb\css\mdb.dark.rtl.min.css" /> -->
+    <!-- <link rel="stylesheet" href="assert\mdb\css\mdb.dark.min.css" /> -->
+    <script src="..\highlight\highlight.js"></script>
+    <script src="..\highlight\highlight.min.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/app.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.min.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/jquery.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/what-input.js"></script>
+    <script src="..\assert\mdb/js/mdb.es.min.js"></script>
+    <script src="..\assert\bootstrap-5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="..\assert\mdb/js/mdb.umd.min.js"></script>
+    <script src="..\assert\datatable\jquery.dataTables.min.js"></script>
+    <script src="..\assert\datatable\datatables.js"></script>
+    <script src="..\assert\datatable\datatables.min.js"></script>
+    <script src="..\assert\ckeditor\ckeditor.js"></script>
+
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <!--Get your own code at fontawesome.com-->
+</head>
+<style>
+    * {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+    ::-webkit-scrollbar {
+    display: none;
+}
+    .shadow-5 {
+        box-shadow: 0 2px 25px -5px rgb(255 0 0 / 26%), 0 25px 21px -5px rgb(255 0 0 / 24%) !important;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgb(241 225 251);
+        background: url(happy-birthday-candles-picture-id1202880334.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
+        scroll-behavior: unset;
+    }
+
+    #yes {
+        color: white;
+        transition: .3s;
+        position: absolute;
+        background: rgb(69, 141, 217);
+        background: -moz-linear-gradient(0deg, rgb(22, 41, 255) 0%, rgb(160, 193, 255) 100%);
+        background: -webkit-linear-gradient(0deg, rgb(22, 243, 255) 0%, rgb(160, 169, 255) 100%);
+        background: linear-gradient(0deg, rgb(57, 22, 255) 0%, rgb(160, 200, 255) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff1636", endColorstr="#ffa0ba", GradientType=1);
+        padding: 0px;
+        /* margin-right: 200px; */
+        height: 80px;
+        width: 400px;
+        border: 0;
+        font-size: 30px;
+        border-radius: 10px;
+        font-weight: bold;
+        left: 60rem;
+    }
+
+    #no {
+        color: white;
+        position: absolute;
+        transition: .3s;
+        background: rgb(69, 141, 217);
+        background: -moz-linear-gradient(0deg, rgb(22, 41, 255) 0%, rgb(160, 193, 255) 100%);
+        background: -webkit-linear-gradient(0deg, rgb(22, 243, 255) 0%, rgb(160, 169, 255) 100%);
+        background: linear-gradient(0deg, rgb(57, 22, 255) 0%, rgb(160, 200, 255) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff1636", endColorstr="#ffa0ba", GradientType=1);
+        padding: 0px;
+        /* margin-left: 200px; */
+        height: 40px;
+        width: 150px;
+        border: 0;
+        top: 50rem;
+        font-size: 20px;
+        border-radius: 10px;
+        font-weight: bold;
+    }
+
+    .pon-der-slide {
+        display: flex;
+        width: 100%;
+        align-items:center;
+        justify-content: center;
+        height: 10rem;
+        gap: 0px;
+        /* margin-left:-120px; */
+    }
+
+    .local-box-of-love {
+        transition: .5s;
+        backdrop-filter: blur(20px);
+        background-color: rgba(255, 255, 255, 0.756);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        width: 70%;
+        height: 70rem;
+        margin: 50px;
+    }
+
+        .local-box-of-love:hover {
+            transition: .5s;
+            background-color: rgb(255, 255, 255);
+        }
+
+    h2 {
+        font-size: 30px;
+    }
+
+    img {
+        width: 300px;
+        cursor: pointer;
+    }
+    @media only screen and (min-width: 1000px) {
+        body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgb(241 225 251);
+        background: url(happy-birthday-candles-picture-id1202880334.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
+        scroll-behavior: unset;
+    }
+}
+
+@media only screen and (max-height: 640px) {
+  .local-box-of-love {
+        transition: .5s;
+        backdrop-filter: blur(20px);
+        background-color: rgba(255, 255, 255, 0.756);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        width: 70%;
+        height: 82vh;
+        margin: 50px;
+  }
+  #yes {
+        color: white;
+        transition: .3s;
+        position: absolute;
+        background: rgb(69, 141, 217);
+        background: -moz-linear-gradient(0deg, rgb(22, 41, 255) 0%, rgb(160, 193, 255) 100%);
+        background: -webkit-linear-gradient(0deg, rgb(22, 243, 255) 0%, rgb(160, 169, 255) 100%);
+        background: linear-gradient(0deg, rgb(57, 22, 255) 0%, rgb(160, 200, 255) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff1636", endColorstr="#ffa0ba", GradientType=1);
+        padding: 0px;
+        /* margin-right: 200px; */
+        height: 60px;
+        width: 250px;
+        border: 0;
+        font-size: 20px;
+        border-radius: 10px;
+        font-weight: bold;
+        left: 21rem;
+    }
+}   
+    
+    </style>
+<body oncontextmenu="return false;">
+    <div class="shadow-5 shadow-4 local-box-of-love">
+        <img onclick="windowGo();" src="pngtree-happy-birthday-text-effect-png-image_241348.png" alt="" srcset="">
+        <div class="pon-der-slide">
+            <button class="btn btn-primary" type="button" id="yes">LAT'S GO</button>
+            <!-- <button class="btn btn-primary" id="no">NO</button> -->
+            <audio style="display: none;" id="audioPlayer" controls loop>
+                <source src="happybirthay.mp3" type="audio/mpeg">
+                Your browser does not support the audio tag.
+            </audio>
+        </audio>
+        </div>
+    </div>
+</body>
+
+<script>
+//     const button = document.getElementById('no'); button.addEventListener('mouseover',
+//         function () {
+//             button.style.left = `${Math.ceil(Math.random() * 95)}%`;
+//             button.style.top = `${Math.ceil(Math.random() * 95)}%`;
+//         }); button.addEventListener('click', function () { window.location="retry.html"; })
+//     function windowClose() {
+//         window.chrome.webview.postMessage('closeWindow');
+//     }
+//     // With jQuery
+// $(document).on({
+//     "contextmenu": function (e) {
+//         console.log("ctx menu button:", e.which); 
+
+//         // Stop the context menu
+//         e.preventDefault();
+//     },
+//     "mousedown": function(e) { 
+//         console.log("normal mouse down:", e.which); 
+//     },
+//     "mouseup": function(e) { 
+//         console.log("normal mouse up:", e.which); 
+//     }
+// });
+
+
+// // Using jQuery with older syntax
+// $(document).on("contextmenu", function (e) {
+//     console.log("ctx menu button:", e.which);
+    
+//     // Stop the context menu
+//     e.preventDefault();
+// });
+
+// $(document).on("mousedown", function (e) {
+//     console.log("normal mouse down:", e.which);
+// });
+
+// $(document).on("mouseup", function (e) {
+//     console.log("normal mouse up:", e.which);
+// });
+
+
+var button = document.getElementById('yes');
+
+button.addEventListener('mouseover', function () {
+    button.style.left = Math.ceil(Math.random() * 95) + '%';
+    button.style.top = Math.ceil(Math.random() * 95) + '%';
+});
+
+button.addEventListener('click', function () {
+    window.location = "albam1.html";
+});
+
+function windowGo() {
+    window.location="albam1.html"; 
+}
+
+document.addEventListener("contextmenu", function (e) {
+    console.log("ctx menu button:", e.which);
+
+    // Stop the context menu
+    e.preventDefault();
+});
+
+document.addEventListener("mousedown", function (e) {
+    console.log("normal mouse down:", e.which);
+});
+
+document.addEventListener("mouseup", function (e) {
+    console.log("normal mouse up:", e.which);
+});
+
+</script>
+<script>
+    // Get the audio element
+    var audioPlayer = document.getElementById('audioPlayer');
+
+    // Automatically play the audio when the page loads
+    window.onload = function() {
+        audioPlayer.play();
+    };
+
+    // Optional: Log when the audio is playing or paused
+    audioPlayer.addEventListener('play', function() {
+        console.log('Audio is playing');
+    });
+
+    audioPlayer.addEventListener('pause', function() {
+        console.log('Audio is paused');
+    });
+
+    // If autoplay is not allowed, add a button for manual play
+    audioPlayer.addEventListener('error', function() {
+        console.log('Error occurred while trying to play audio. Please start it manually.');
+    });
+</script>
+</html>

@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Specify document mode for different versions of Internet Explorer -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest mode available -->
+    <meta http-equiv="X-UA-Compatible" content="IE=11">  <!-- IE 11 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=10">  <!-- IE 10 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=9">   <!-- IE 9 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=8">   <!-- IE 8 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"> <!-- Emulate IE 8 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"> <!-- Emulate IE 7 -->
+
+    <link rel="stylesheet" href="..\style.css">
+    <link rel="stylesheet" href="..\assert\bootstrap-5.0.2\dist\css\bootstrap.min.css" />
+    <link rel="stylesheet" href="..\highlight\styles\vs.min.css">
+    <link rel="stylesheet" href="..\assert\bulma\css\bulma.min.css" />
+    <link rel="stylesheet" href="..\assert\bulma\bulma.sass" />
+    <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.css" />
+    <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.min.css" />
+    <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\normalize.css" />
+    <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\skeleton.css" />
+    <link rel="stylesheet" href="..\assert\datatable\datatables.css" />
+    <link rel="stylesheet" href="..\assert\datatable\datatables.min.css" />
+    <link rel="stylesheet" href="..\assert\mdb\css\mdb.min.css" />
+    <link rel="stylesheet" href="..\assert\mdb\css\mdb.rtl.min.css" />
+    <!-- <link rel="stylesheet" href="highlight\styles\a11y-dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\tokyo-night-dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\tomorrow-night-blue.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\stackoverflow-dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="assert\mdb\css\mdb.dark.rtl.min.css" /> -->
+    <!-- <link rel="stylesheet" href="assert\mdb\css\mdb.dark.min.css" /> -->
+    <script src="..\highlight\highlight.js"></script>
+    <script src="..\highlight\highlight.min.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/app.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.min.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/jquery.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/what-input.js"></script>
+    <script src="..\assert\mdb/js/mdb.es.min.js"></script>
+    <script src="..\assert\bootstrap-5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="..\assert\mdb/js/mdb.umd.min.js"></script>
+    <script src="..\assert\datatable\jquery.dataTables.min.js"></script>
+    <script src="..\assert\datatable\datatables.js"></script>
+    <script src="..\assert\datatable\datatables.min.js"></script>
+    <script src="..\assert\ckeditor\ckeditor.js"></script>
+
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <title>Photo Album</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #333;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .photo-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: -10px;
+        }
+
+        .photo-item {
+            width: calc(33.333% - 20px);
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #slideshow {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            overflow: hidden;
+            border: 2px solid #000;
+        }
+
+        #slideshow img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            opacity: 0;
+        }
+
+        #slideshow img.active {
+            left: 0;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="slideshow"></div>
+
+    <div class="container">
+        <header>
+            <h1>My Photo Album</h1>
+            <p>A collection of my favorite memories</p>
+        </header>
+        <div class="photo-gallery" id="photoGallery"></div>
+    </div>
+    
+    <div class="modal" id="imageModal">
+        <span class="close" id="closeModal">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+
+    <script>
+        var slideshowImages = [];
+        for (var i = 1; i <= 3; i++) {
+            slideshowImages.push('image' + i + '.jpg'); // Adjust the number based on your images
+        }
+
+        var slideshow = document.getElementById('slideshow');
+        for (var i = 0; i < slideshowImages.length; i++) {
+            var img = document.createElement('img');
+            img.src = slideshowImages[i];
+            img.alt = 'Slide ' + (i + 1);
+            if (i === 0) {
+                img.className = 'active'; // Set first image as active
+            }
+            slideshow.appendChild(img);
+        }
+
+        var galleryImages = [];
+        for (var j = 1; j <= 125; j++) {
+            galleryImages.push('image/(' + j + ').jpg');
+        }
+
+        var gallery = document.getElementById('photoGallery');
+        var modal = document.getElementById('imageModal');
+        var modalImage = document.getElementById('modalImage');
+        var captionText = document.getElementById('caption');
+        var closeModal = document.getElementById('closeModal');
+
+        for (var j = 0; j < galleryImages.length; j++) {
+            (function(index) {
+                var img = new Image();
+                img.src = galleryImages[index];
+
+                img.onload = function() {
+                    var item = document.createElement('div');
+                    item.className = 'photo-item';
+
+                    var imgElement = document.createElement('img');
+                    imgElement.src = img.src;
+                    imgElement.alt = 'Image ' + (index + 1);
+
+                    imgElement.onclick = function() {
+                        modal.style.display = "block";
+                        modalImage.src = img.src;
+                        captionText.innerHTML = 'Image ' + (index + 1);
+                    };
+
+                    item.appendChild(imgElement);
+                    gallery.appendChild(item);
+                };
+
+                img.onerror = function() {
+                    console.error('Error loading image: ' + this.src);
+                };
+            })(j);
+        }
+
+        closeModal.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+
+        var slides = document.getElementById('slideshow').getElementsByTagName('img');
+        var currentIndex = 0;
+
+        function showNextSlide() {
+            slides[currentIndex].className = '';
+            currentIndex = (currentIndex + 1) % slides.length;
+            slides[currentIndex].className = 'active';
+            setTimeout(showNextSlide, 3000);
+        }
+
+        showNextSlide();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Album</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #333;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .photo-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: -10px;
+        }
+
+        .photo-item {
+            width: calc(33.333% - 20px);
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        #caption {
+            margin: auto;
+            display: block;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #slideshow {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            overflow: hidden;
+            border: 2px solid #000;
+        }
+        
+        #slideshow img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            opacity: 0;
+        }
+        
+        #slideshow img.active {
+            left: 0;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="slideshow">
+        <img src="image1.jpg" class="active" alt="Slide 1">
+        <img src="image2.jpg" alt="Slide 2">
+        <img src="image3.jpg" alt="Slide 3">
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>My Photo Album</h1>
+            <p>A collection of my favorite memories</p>
+        </header>
+        <div class="photo-gallery" id="photoGallery"></div>
+    </div>
+    
+    <div class="modal" id="imageModal">
+        <span class="close" id="closeModal">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+
+    <script>
+        var images = [];
+        for (var i = 1; i <= 125; i++) {
+            images.push('image/(' + i + ').jpg');
+        }
+
+        var gallery = document.getElementById('photoGallery');
+        var modal = document.getElementById('imageModal');
+        var modalImage = document.getElementById('modalImage');
+        var captionText = document.getElementById('caption');
+        var closeModal = document.getElementById('closeModal');
+
+        for (var i = 0; i < images.length; i++) {
+            (function(index) {
+                var img = new Image();
+                img.src = images[index];
+
+                img.onload = function() {
+                    var item = document.createElement('div');
+                    item.className = 'photo-item';
+
+                    var imgElement = document.createElement('img');
+                    imgElement.src = img.src;
+                    imgElement.alt = 'Image ' + (index + 1);
+
+                    imgElement.onclick = function() {
+                        modal.style.display = "block";
+                        modalImage.src = img.src;
+                        captionText.innerHTML = 'Image ' + (index + 1);
+                    };
+
+                    item.appendChild(imgElement);
+                    gallery.appendChild(item);
+                };
+
+                img.onerror = function() {
+                    console.error('Error loading image: ' + this.src);
+                };
+            })(i);
+        }
+
+        closeModal.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+
+        var slides = document.getElementById('slideshow').getElementsByTagName('img');
+        var currentIndex = 0;
+
+        function showNextSlide() {
+            slides[currentIndex].className = '';
+
+            currentIndex = (currentIndex + 1) % slides.length;
+            slides[currentIndex].className = 'active';
+
+            setTimeout(showNextSlide, 3000);
+        }
+
+        showNextSlide();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Specify document mode for different versions of Internet Explorer -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest mode available -->
+    <meta http-equiv="X-UA-Compatible" content="IE=11">  <!-- IE 11 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=10">  <!-- IE 10 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=9">   <!-- IE 9 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=8">   <!-- IE 8 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"> <!-- Emulate IE 8 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"> <!-- Emulate IE 7 -->
+
+    <link rel="stylesheet" href="..\style.css">
+    <link rel="stylesheet" href="..\assert\bootstrap-5.0.2\dist\css\bootstrap.min.css" />
+    <link rel="stylesheet" href="..\highlight\styles\vs.min.css">
+    <link rel="stylesheet" href="..\assert\bulma\css\bulma.min.css" />
+    <link rel="stylesheet" href="..\assert\bulma\bulma.sass" />
+    <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.css" />
+    <link rel="stylesheet" href="..\assert\Foundation-Sites-CSS\css\foundation.min.css" />
+    <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\normalize.css" />
+    <link rel="stylesheet" href="..\assert\Skeleton-2.0.4\css\skeleton.css" />
+    <link rel="stylesheet" href="..\assert\datatable\datatables.css" />
+    <link rel="stylesheet" href="..\assert\datatable\datatables.min.css" />
+    <link rel="stylesheet" href="..\assert\mdb\css\mdb.min.css" />
+    <link rel="stylesheet" href="..\assert\mdb\css\mdb.rtl.min.css" />
+    <!-- <link rel="stylesheet" href="highlight\styles\a11y-dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\tokyo-night-dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\tomorrow-night-blue.min.css"> -->
+    <!-- <link rel="stylesheet" href="highlight\styles\stackoverflow-dark.min.css"> -->
+    <!-- <link rel="stylesheet" href="assert\mdb\css\mdb.dark.rtl.min.css" /> -->
+    <!-- <link rel="stylesheet" href="assert\mdb\css\mdb.dark.min.css" /> -->
+    <script src="..\highlight\highlight.js"></script>
+    <script src="..\highlight\highlight.min.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/app.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/foundation.min.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/jquery.js"></script>
+    <script src="..\assert\Foundation-Sites-CSS/js/vendor/what-input.js"></script>
+    <script src="..\assert\mdb/js/mdb.es.min.js"></script>
+    <script src="..\assert\bootstrap-5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="..\assert\mdb/js/mdb.umd.min.js"></script>
+    <script src="..\assert\datatable\jquery.dataTables.min.js"></script>
+    <script src="..\assert\datatable\datatables.js"></script>
+    <script src="..\assert\datatable\datatables.min.js"></script>
+    <script src="..\assert\ckeditor\ckeditor.js"></script>
+
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <title>Photo Album</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
+header p {
+    font-size: 1.2em;
+    color: #666;
+}
+
+.photo-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: -10px; /* Negative margin for wider gaps */
+}
+
+.photo-item {
+    width: calc(33.333% - 20px); /* Three items per row with gaps */
+    margin: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.photo-item:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.photo-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: filter 0.3s ease;
+}
+
+.photo-item:hover img {
+    filter: brightness(0.9);
+}
+
+.caption {
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    background-color: #f8f8f8;
+}
+
+/* Animation for fade in effect */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    .photo-item {
+        width: calc(50% - 20px); /* Two items per row on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .photo-item {
+        width: 100%; /* One item per row on extra small screens */
+    }
+}
+
+</style>
+<style>
+    .modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.9); /* Black with opacity */
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%; /* Width of the modal image */
+    max-width: 700px; /* Max width of the modal image */
+}
+
+#caption {
+    margin: auto;
+    display: block;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+</style>
+<style>
+    #slideshow {
+        position: relative;
+        width: 600px; /* Adjust width */
+        height: 400px; /* Adjust height */
+        overflow: hidden;
+        border: 2px solid #000;
+    }
+    #slideshow img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 100%;
+        opacity: 0;
+        transition: opacity 1s ease-in-out; /* Modern browsers only */
+    }
+    #slideshow img.active {
+        left: 0;
+        opacity: 1;
+    }
+</style>
+<body>
+    <div id="slideshow">
+        <img src="image1.jpg" class="active" alt="Slide 1">
+        <img src="image2.jpg" alt="Slide 2">
+        <img src="image3.jpg" alt="Slide 3">
+        <!-- Add more images as needed -->
+    </div>
+    
+    <script>
+        var slides = document.getElementById('slideshow').getElementsByTagName('img');
+        var currentIndex = 0;
+    
+        function showNextSlide() {
+            slides[currentIndex].className = ''; // Remove active class
+    
+            currentIndex = (currentIndex + 1) % slides.length; // Move to next slide
+            slides[currentIndex].className = 'active'; // Add active class
+    
+            setTimeout(showNextSlide, 3000); // Change slide every 3 seconds
+        }
+    
+        // Start the slideshow
+        showNextSlide();
+    </script>
+    <div class="container">
+        <header>
+            <h1>My Photo Album</h1>
+            <p>A collection of my favorite memories</p>
+        </header>
+        <div class="photo-gallery" id="photoGallery">
+            <!-- Images will be added here by JavaScript -->
+        </div>
+    </div>
+    <div class="modal" id="imageModal">
+        <span class="close" id="closeModal">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+    
+</body>
+<script>
+var images = [];
+for (var i = 1; i <= 125; i++) {
+    images.push('image/(' + i + ').jpg');
+}
+
+var gallery = document.getElementById('photoGallery');
+var modal = document.getElementById('imageModal');
+var modalImage = document.getElementById('modalImage');
+var captionText = document.getElementById('caption');
+var closeModal = document.getElementById('closeModal');
+
+for (var i = 0; i < images.length; i++) {
+    (function(index) {
+        var img = new Image();
+        img.src = images[index];
+
+        img.onload = function() {
+            var item = document.createElement('div');
+            item.className = 'photo-item';
+
+            var aspectRatio = this.width / this.height; 
+            var height = 200; 
+            var width = height * aspectRatio;
+
+            item.style.width = width + 'px';
+            item.style.height = height + 'px';
+
+            var imgElement = document.createElement('img');
+            imgElement.src = img.src;
+            imgElement.alt = 'Image ' + (index + 1);
+
+            imgElement.onclick = function() {
+                modal.style.display = "block";
+                modalImage.src = img.src;
+                captionText.innerHTML = 'Image ' + (index + 1);
+            };
+
+            var caption = document.createElement('div');
+            caption.className = 'caption';
+            caption.textContent = 'Image ' + (index + 1); 
+
+            item.appendChild(imgElement);
+            item.appendChild(caption);
+            gallery.appendChild(item);
+        };
+
+        img.onerror = function() {
+            console.error('Error loading image: ' + this.src);
+        };
+    })(i);
+}
+
+// Close the modal when the close button is clicked
+closeModal.onclick = function() {
+    modal.style.display = "none";
+};
+
+// Close the modal when clicking anywhere outside the image
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+};
+</script>
+</html>
